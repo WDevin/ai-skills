@@ -1,0 +1,6 @@
+# AI 新闻日报依赖
+feedparser>=6.0.0
+translators>=5.0.0
+requests>=2.25.0
+beautifulsoup4>=4.9.0
+lxml>=4.6.0

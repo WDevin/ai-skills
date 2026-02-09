@@ -334,7 +334,14 @@ class NewsFetcher:
             
         try:
             print(f"  正在获取: {source['name']}...")
-            feed = feedparser.parse(source["url"])
+            # 使用 requests 获取内容再解析，避免 feedparser 直接解析 URL 的问题
+            if REQUESTS_AVAILABLE:
+                resp = requests.get(source["url"], timeout=30, headers={
+                    "User-Agent": "Mozilla/5.0 (compatible; AI News Bot)"
+                })
+                feed = feedparser.parse(resp.text)
+            else:
+                feed = feedparser.parse(source["url"])
             items = []
             
             for entry in feed.entries[:30]:
